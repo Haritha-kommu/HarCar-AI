@@ -1,0 +1,77 @@
+================================================================================
+DATASET INFORMATION: USED CAR PRICE PREDICTION
+================================================================================
+
+1. DATASET OVERVIEW & SOURCE:
+--------------------------------------------------------------------------------
+- Dataset Name: CarDekho Used Car Dataset (car_data.csv)
+- Primary Source: Scraped from CarDekho.com, publicly archived on Kaggle / GitHub 
+  (Open data for educational and academic research purposes).
+- Domain: Indian Automotive Secondary Market
+- Total Records (Rows): 301 car listings
+- Total Attributes (Columns): 9 features
+
+2. COLUMN DESCRIPTIONS & UNITS:
+--------------------------------------------------------------------------------
+1. Car_Name:
+   - Type: Categorical (String / Object)
+   - Description: The brand and model name of the car (e.g., ritz, sx4, ciaz, swift, ertiga, city, etc.)
+
+2. Year:
+   - Type: Numerical (Integer)
+   - Description: The manufacturing / registration year of the car (Range: 2003 to 2018).
+   - Usage in ML: Can be used to derive 'Car_Age' (Current_Year - Year).
+
+3. Selling_Price (TARGET VARIABLE):
+   - Type: Numerical (Float, Continuous)
+   - Description: The actual price at which the car is listed/sold in the secondary market.
+   - Unit: Indian Rupees in Lakhs (1 Lakh = 100,000 INR). Example: 3.35 represents ₹3,35,000.
+
+4. Present_Price:
+   - Type: Numerical (Float, Continuous)
+   - Description: The ex-showroom price of the vehicle when purchased new.
+   - Unit: Indian Rupees in Lakhs (1 Lakh = 100,000 INR). Example: 5.59 represents ₹5,59,000.
+
+5. Kms_Driven:
+   - Type: Numerical (Integer)
+   - Description: Total odometer distance traveled by the car.
+   - Unit: Kilometers (km).
+
+6. Fuel_Type:
+   - Type: Categorical (Nominal)
+   - Categories: Petrol, Diesel, CNG
+   - Description: Fuel system mechanism powering the vehicle.
+
+7. Seller_Type:
+   - Type: Categorical (Nominal)
+   - Categories: Dealer (Authorized or multi-brand car dealership), Individual (Private owner selling directly).
+
+8. Transmission:
+   - Type: Categorical (Nominal)
+   - Categories: Manual, Automatic
+   - Description: Gearbox transmission configuration.
+
+9. Owner:
+   - Type: Numerical (Integer)
+   - Values: 0 (First Owner), 1 (Second Owner), 3 (Fourth Owner or above)
+   - Description: Number of previous registered owners.
+
+3. SERVICE HISTORY STATUS:
+--------------------------------------------------------------------------------
+- Status: NOT PRESENT
+- Assessment: The dataset does NOT contain service records, periodic maintenance logs, accident history, or warranty status.
+- ML Impact: Physical condition and maintenance wear must be approximated using proxy features: 'Car_Age', 'Kms_Driven', and 'Owner'.
+
+4. DATASET LIMITATIONS & PROJECT CONSIDERATIONS:
+--------------------------------------------------------------------------------
+1. Sample Size:
+   - With 301 records, the dataset is compact and suitable for academic mini-projects and demonstrations, but larger datasets (e.g., 4000+ records) are preferred for national-scale production models.
+2. Temporal Window:
+   - Data collection reflects market conditions up to 2018; prices should be evaluated relative to that economic period.
+3. Geographical Context:
+   - Prices and depreciation rates are tailored specifically to the Indian automotive market (measured in Lakhs INR).
+4. Car Name High Cardinality:
+   - Many unique car model names exist with few instances each; feature engineering (e.g. brand extraction or categorical encoding) will be required.
+5. Missing Qualitative Factors:
+   - Attributes like vehicle cosmetic condition, accidental status, insurance validity, tire health, and exact city tier are not recorded.
+================================================================================

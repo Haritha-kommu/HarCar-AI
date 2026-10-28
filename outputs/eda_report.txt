@@ -1,0 +1,95 @@
+================================================================================
+MODULE 3: EXPLORATORY DATA ANALYSIS (EDA) REPORT
+Project: Used-Car Price Prediction Using Random Forest Regression
+================================================================================
+
+1. DATASET OVERVIEW:
+--------------------------------------------------------------------------------
+- Cleaned Records Analyzed : 299 car listings
+- Total Columns            : 10 columns
+- Target Variable          : Selling_Price (Unit: Lakhs INR)
+
+2. TARGET VARIABLE STATISTICS (Selling_Price):
+--------------------------------------------------------------------------------
+- Count                   : 299
+- Mean                    : Rs. 4.59 Lakhs (Rs. 458,963)
+- Median (50th percentile): Rs. 3.51 Lakhs (Rs. 351,000)
+- Standard Deviation      : Rs. 4.98 Lakhs
+- Minimum                 : Rs. 0.10 Lakhs (Rs. 10,000)
+- 25th Percentile (Q1)    : Rs. 0.85 Lakhs
+- 75th Percentile (Q3)    : Rs. 6.00 Lakhs
+- Maximum                 : Rs. 35.00 Lakhs (Rs. 3,500,000)
+- Interquartile Range(IQR): Rs. 5.15 Lakhs
+- Skewness                : 2.54 (Positively / Right-skewed distribution)
+- Outlier Threshold (Q3+1.5*IQR) : Rs. 13.73 Lakhs
+- High-Value Outlier Count: 16 vehicles listed above Rs. 13.73 Lakhs
+  (Note: Kept in dataset as genuine luxury/premium vehicles; Random Forest is naturally
+   robust to target and feature outliers without requiring artificial deletion).
+
+3. CORRELATION WITH TARGET (Selling_Price):
+--------------------------------------------------------------------------------
+Present_Price    0.876378
+Kms_Driven       0.028566
+Car_Age         -0.234369
+Owner           -0.087880
+
+Key Observations:
+* Present_Price (+0.88): Strong positive linear association. Cars with 
+  higher original showroom cost consistently command higher secondary market resale value.
+* Car_Age (-0.23): Moderate negative association. Older vehicles suffer from 
+  cumulative physical and market depreciation.
+* Kms_Driven (0.03): Weak positive/flat linear correlation. Higher odometer 
+  readings appear in larger/diesel cars that happen to be costlier models.
+* Owner (-0.09): Weak negative correlation. Multiple ownership marginally dampens price.
+
+4. CATEGORICAL SUBGROUP ANALYSIS:
+--------------------------------------------------------------------------------
+A. By Fuel Type:
+           count   mean  median
+Fuel_Type                      
+CNG            2   3.10    3.10
+Diesel        58  10.10    7.60
+Petrol       239   3.26    2.65
+- Insight: Diesel cars exhibit a noticeably higher mean price (Rs. 10.10L) 
+  compared to Petrol cars (Rs. 3.26L), primarily because larger SUVs 
+  and sedans in the dataset are predominantly diesel-powered.
+
+B. By Seller Type:
+             count  mean  median
+Seller_Type                     
+Dealer         193  6.63    5.25
+Individual     106  0.87    0.52
+- Insight: Dealer listings have a substantially higher mean selling price (Rs. 6.63L) 
+  than Individual seller listings (Rs. 0.87L). Many low-cost two-wheelers 
+  or entry-level hatchbacks in the dataset were sold directly by individual owners.
+
+C. By Transmission:
+              count  mean  median
+Transmission                     
+Automatic        39  9.07    5.75
+Manual          260  3.92    3.25
+- Insight: Automatic cars command a higher average resale price (Rs. 9.07L) 
+  than Manual vehicles (Rs. 3.92L), reflecting higher baseline showroom costs 
+  and consumer willingness to pay for premium convenience.
+
+5. METHODOLOGICAL NOTE ON CAUSATION VS. CORRELATION:
+--------------------------------------------------------------------------------
+- IMPORTANT: The statistical correlations and scatter patterns identified above 
+  represent empirical associations observed within this sample dataset. 
+  Correlation does NOT prove causation.
+  For example, high kilometers driven does not cause a car to become more expensive; 
+  rather, commercial and luxury diesel vehicles happen to both be driven more kilometers 
+  and maintain a higher absolute baseline value.
+- The non-linear splits in Random Forest Regression will naturally capture these 
+  multi-dimensional interactions without assuming simple linear causality.
+
+6. SAVED VISUAL ARTIFACTS IN outputs/:
+--------------------------------------------------------------------------------
+1. outputs/01_selling_price_distribution.png
+2. outputs/02_selling_price_boxplot.png
+3. outputs/03_car_age_vs_selling_price.png
+4. outputs/04_kms_driven_vs_selling_price.png
+5. outputs/05_present_price_vs_selling_price.png
+6. outputs/06_categorical_vs_selling_price.png
+7. outputs/07_correlation_heatmap.png
+================================================================================

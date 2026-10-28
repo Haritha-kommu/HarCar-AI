@@ -1,0 +1,67 @@
+================================================================================
+MODULE 6: COMPLETE PROJECT TESTING AND INTEGRATION REPORT
+Project: Used-Car Price Prediction Using Random Forest Regression
+================================================================================
+Execution Summary: 34 of 34 tests PASSED (0 failures)
+Test Environment : Python 3.13 (64-bit)
+--------------------------------------------------------------------------------
+
+1. INDIVIDUAL TEST EXECUTION RESULTS:
+--------------------------------------------------------------------------------
+01. [PASS] File Structure Check: All 17 mandatory project files verified.
+02. [PASS] Raw Dataset Verification: Loaded raw dataset with shape (301, 9) (Expected: 301 rows, 9 cols).
+03. [PASS] Cleaned Dataset Deduplication: Cleaned dataset has 299 rows with 0 duplicates.
+04. [PASS] Cleaned Dataset Null Check: Total nulls: 0 across all columns.
+05. [PASS] Car_Age Feature Validity: Car_Age column exists with min=2 and max=17.
+06. [PASS] Model Type Check: Loaded artifact is an instance of sklearn.pipeline.Pipeline.
+07. [PASS] Pipeline Steps Check: Contains expected steps: ['preprocessor', 'regressor'].
+08. [PASS] RandomForest Fitted Check: Regressor is RandomForestRegressor fitted with 200 decision trees.
+09. [PASS] Inference Finite & Positive Check: Predicted value: Rs. 3.62 Lakhs (Rs. 362,475).
+10. [PASS] Inference Reasonable Value Check: Prediction Rs. 3.62L falls within expected domain range (2.0L - 5.0L).
+11. [PASS] Edge Case 1: Brand-New Car (Car_Age = 0 years): Predicted: Rs. 6.70 Lakhs (Valid: True)
+12. [PASS] Edge Case 2: High Mileage Vehicle (250,000 km): Predicted: Rs. 4.05 Lakhs (Valid: True)
+13. [PASS] Edge Case 3: CNG Fuel Powertrain: Predicted: Rs. 3.49 Lakhs (Valid: True)
+14. [PASS] Edge Case 4: Diesel Powertrain: Predicted: Rs. 7.97 Lakhs (Valid: True)
+15. [PASS] Edge Case 5: Automatic Transmission Luxury: Predicted: Rs. 12.98 Lakhs (Valid: True)
+16. [PASS] Edge Case 6: Multiple Owners (Owner = 3): Predicted: Rs. 2.41 Lakhs (Valid: True)
+17. [PASS] Validation Rejection: Negative Present_Price (-3.5L): Correctly caught error: Original Ex-Showroom Price must be strictly greater than 0.
+18. [PASS] Validation Rejection: Zero Present_Price (0.0L): Correctly caught error: Original Ex-Showroom Price must be strictly greater than 0.
+19. [PASS] Validation Rejection: Negative Car_Age (-3 yrs): Correctly caught error: Vehicle Age cannot be negative.
+20. [PASS] Validation Rejection: Negative Kms_Driven (-1000 km): Correctly caught error: Distance traveled cannot be negative.
+21. [PASS] Validation Rejection: Negative Owner Count (-1): Correctly caught error: Previous owner count cannot be negative.
+22. [PASS] Valuation Standard Arithmetic: Retained: 64.84%, Depreciation: 35.16% (Exact match).
+23. [PASS] Valuation Anomaly Detection (No Clamping): Retained: 778.35%, Depreciation: -678.35%, Flag: True.
+24. [PASS] Fuel Type Diesel Robustness (5.59L): Petrol=3.62L, Diesel=3.65L, CNG=3.63L (All within domain expectations).
+25. [PASS] 0.95L Resale Scenario Reproduction: Budget listing (Present_Price=1.20L, Diesel) yields 0.97L (~0.95L).
+26. [PASS] EDA Plot 01_selling_price_distribution.png: File exists (128,727 bytes).
+27. [PASS] EDA Plot 02_selling_price_boxplot.png: File exists (53,829 bytes).
+28. [PASS] EDA Plot 03_car_age_vs_selling_price.png: File exists (226,379 bytes).
+29. [PASS] EDA Plot 04_kms_driven_vs_selling_price.png: File exists (269,897 bytes).
+30. [PASS] EDA Plot 05_present_price_vs_selling_price.png: File exists (208,931 bytes).
+31. [PASS] EDA Plot 06_categorical_vs_selling_price.png: File exists (164,641 bytes).
+32. [PASS] EDA Plot 07_correlation_heatmap.png: File exists (207,051 bytes).
+33. [PASS] Test Predictions CSV Check: Verified 60 test predictions with all error columns.
+34. [PASS] Streamlit Server Response: HTTP Status 200 OK (Tornado server responding on port 8501).
+
+2. KEY INTEGRATION FINDINGS:
+--------------------------------------------------------------------------------
+- Data Pipeline Integrity: Raw data (301 records) is strictly preserved. Cleaned
+  dataset (299 records) has 0 duplicate rows and 0 null values.
+- Model Pipeline Architectural Contract: The serialized model is a complete scikit-learn
+  Pipeline pairing ColumnTransformer with RandomForestRegressor (200 trees).
+- Edge Case Robustness: Successfully handles 0-year-old cars, high mileage (250,000 km),
+  all fuel types (Petrol, Diesel, CNG), transmissions, and multiple owners without crash.
+- Input Validation Safety: Negative prices, negative ages, negative odometers, and negative
+  owners are reliably intercepted and rejected.
+- Artifact Completeness: All 7 EDA plots, feature importance chart, predictions CSV, and
+  text reports exist and are verified.
+- Live Server Responsiveness: Streamlit web application is alive and responding with HTTP 200.
+
+3. METHODOLOGICAL LIMITATIONS IDENTIFIED:
+--------------------------------------------------------------------------------
+1. Supercar / Luxury Edge Case Variance: Vehicles originally costing >Rs. 25 Lakhs have
+   higher absolute prediction errors due to few high-end examples in the training dataset.
+2. Pre-2020 Economic Window: Pricing dynamics reflect historical secondary market listings.
+3. Qualitative Maintenance Gap: Physical service logs and cosmetic condition ratings are
+   absent from the dataset.
+================================================================================

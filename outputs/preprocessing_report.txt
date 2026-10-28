@@ -1,0 +1,62 @@
+================================================================================
+MODULE 2: DATA PREPROCESSING REPORT
+Project: Used-Car Price Prediction Using Random Forest Regression
+================================================================================
+
+1. DATASET VOLUME & DEDUPLICATION:
+--------------------------------------------------------------------------------
+- Original Raw Records (data/car_data.csv) : 301 rows, 9 columns
+- Duplicate Rows Identified & Removed     : 2 rows
+- Final Cleaned Records                   : 299 rows, 10 columns
+
+2. INTEGRITY CHECKS:
+--------------------------------------------------------------------------------
+- Missing / Null Values                   : 0 (No imputation needed)
+- Negative / Zero Value Inconsistencies   : None detected
+- Target Variable Range (Selling_Price)   : ₹0.10 Lakhs to ₹35.00 Lakhs
+- Ex-Showroom Price Range (Present_Price) : ₹0.32 Lakhs to ₹92.60 Lakhs
+- Odometer Range (Kms_Driven)             : 500 km to 500,000 km
+
+3. FEATURE ENGINEERING (CAR AGE):
+--------------------------------------------------------------------------------
+- Reference Year Used                     : 2020
+- Justification                           : Historical CarDekho dataset was compiled around 2020 
+                                            (vehicle years span 2003-2018). Using 2020 reflects the 
+                                            actual vehicle age at the time of market listing.
+- Formula                                 : Car_Age = 2020 - Year
+- Vehicle Age Range in Cleaned Data       : 2 to 17 years
+- Raw 'Year' Column Handling              : Retained in cleaned CSV for auditability, but replaced 
+                                            by 'Car_Age' in the ML feature set.
+
+4. FEATURE SELECTION & RATIONALE:
+--------------------------------------------------------------------------------
+- Target Variable (y)                     : Selling_Price (Preserved strictly as output; never in X)
+- Input Features Selected (X)             :
+    1. Present_Price (Numerical, Lakhs INR)
+    2. Kms_Driven    (Numerical, Kilometers)
+    3. Owner         (Numerical, Previous Owners Count: 0, 1, 3)
+    4. Car_Age       (Numerical, Derived Years)
+    5. Fuel_Type     (Categorical: Petrol, Diesel, CNG)
+    6. Seller_Type   (Categorical: Dealer, Individual)
+    7. Transmission  (Categorical: Manual, Automatic)
+- Excluded Features:
+    * Car_Name       : High cardinality (98 distinct models in 299 rows). Excluded from 
+                       regression input to prevent extreme sparsity and model overfitting.
+    * Year           : Excluded to eliminate strict collinearity with 'Car_Age'.
+
+5. TRAIN / TEST SPLIT (NO DATA LEAKAGE):
+--------------------------------------------------------------------------------
+- Split Ratio                             : 80% Training (239 samples), 20% Testing (60 samples)
+- Random Seed                             : 42
+- Preprocessing Pipeline Strategy         :
+    * ColumnTransformer with OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore')
+    * Preprocessor is FITTED ONLY ON TRAINING SET (X_train) and applied to test set (X_test).
+    * No whole-dataset transformation occurred prior to splitting.
+- Final Transformed Features (8 total) :
+    ['Present_Price', 'Kms_Driven', 'Owner', 'Car_Age', 'Fuel_Type_Diesel', 'Fuel_Type_Petrol', 'Seller_Type_Individual', 'Transmission_Manual']
+
+6. SAVED ARTIFACTS:
+--------------------------------------------------------------------------------
+- Cleaned CSV                             : data/cleaned_car_data.csv
+- Preprocessing Report                    : outputs/preprocessing_report.txt
+================================================================================

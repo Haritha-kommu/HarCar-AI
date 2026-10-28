@@ -1,0 +1,21 @@
+================================================================================
+HARCAR AI — MODEL PERFORMANCE REPORT (TUNED RANDOM FOREST)
+================================================================================
+Algorithm             : RandomForestRegressor (Tuned with Decorrelated Trees)
+Hyperparameters       : n_estimators=400, max_features='sqrt', min_samples_split=2
+Dataset               : data/cleaned_car_data.csv (299 samples)
+Train / Test Split    : 80% Train (239 samples) / 20% Test (60 samples), random_state=42
+Features              : Numerical [Present_Price, Kms_Driven, Owner, Car_Age]
+                        Categorical [Fuel_Type, Seller_Type, Transmission]
+
+EVALUATION METRICS ON UNSEEN HELD-OUT TEST SET:
+--------------------------------------------------------------------------------
+Coefficient of Determination (R²) : 0.7957 (Baseline RF: 0.5383, Improvement: +0.2574)
+Mean Absolute Error (MAE)          : 1.0657 Lakhs (Rs. 106,570) (Baseline RF: Rs. 1,44,711)
+Root Mean Squared Error (RMSE)     : 2.2946 Lakhs (Rs. 229,464) (Baseline RF: Rs. 3,44,954)
+
+NOTE ON METRIC INTERPRETATION:
+R² represents the proportion of variance in car resale price explained by the
+model relative to the mean baseline. It is NOT percentage prediction accuracy.
+Average expected error on an unseen vehicle is measured directly by MAE: Rs. 106,570.
+================================================================================
